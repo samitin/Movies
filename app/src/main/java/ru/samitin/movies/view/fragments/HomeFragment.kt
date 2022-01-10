@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
             override fun onClick(cardMovie: CardMovie) {
                 Toast.makeText(context,cardMovie.name,Toast.LENGTH_SHORT).show()
                 val intent=Intent(activity,DescriptionActivity::class.java)
-                intent.putExtra(DESCRIPTION_CARD_KEY,cardMovie)
+                intent.putExtra(DESCRIPTION_CARD_KEY,cardMovie.id)
                 startActivity(intent)
             }
         })
