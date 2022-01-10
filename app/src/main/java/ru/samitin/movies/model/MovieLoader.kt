@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import ru.samitin.movies.BuildConfig
 import ru.samitin.movies.model.dto.MovieDTO
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -18,7 +19,7 @@ class MovieLoader(private val listener:MovieLoaderListener,val id:Int) {
     @RequiresApi(Build.VERSION_CODES.N)
     fun loadMovie(){
         try {
-            val uri=URL("https://api.themoviedb.org/3/movie/$id?api_key=0b8cdfc64ddf0f42c3b7bbfa666780aa")
+            val uri=URL("https://api.themoviedb.org/3/movie/$id?api_key=${BuildConfig.MOVIE_API_KEY}")
             val handler = Handler()
             Thread{
                 lateinit var urlConnection: HttpsURLConnection
