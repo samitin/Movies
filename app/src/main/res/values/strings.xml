@@ -3,4 +3,6 @@
     <string name="button_navigation_text_home">Home</string>
     <string name="button_navigation_text_favorite">Favorite</string>
     <string name="button_navigation_text_rating">Rating</string>
+    <string name="reload">перезагрузить</string>
+    <string name="error">ошибка</string>
 </resources>
