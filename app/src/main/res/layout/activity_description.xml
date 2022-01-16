@@ -79,11 +79,11 @@
         android:text=";iojr3fvijr3pijvr3ijvp3jvp'rjvprjkvpo3tjkvpo53tjvp35tjvp5tj"
         android:textSize="20sp"
         android:paddingStart="10dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/cont_des"
+        app:layout_constraintTop_toBottomOf="@id/image_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
