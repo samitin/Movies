@@ -7,11 +7,11 @@ class RepositoryImpl : Repository {
     private var movies:ArrayList<CardMovie>?
     init {
         movies=ArrayList<CardMovie>()
-            movies?.add(CardMovie(550,"Космический джем: Новое поколение", "08 июль 2021", "78", 0))
-            movies?.add(CardMovie(550,"Чёрная вдова", "07 июл 2021", "79", 1 ))
-            movies?.add(CardMovie(550,"Судная ночь навсегда", "30 июн 2021", "78", 2))
-            movies?.add(CardMovie(550,"Босс-молокосос 2", "01 июл 2021", "79", 3))
-            movies?.add(CardMovie(550,"Война будущего", "30 июн 2021", "82", 4))
+            movies?.add(CardMovie(550,"Космический джем: Новое поколение", "08 июль 2021", "78", ""))
+            movies?.add(CardMovie(550,"Чёрная вдова", "07 июл 2021", "79", "" ))
+            movies?.add(CardMovie(550,"Судная ночь навсегда", "30 июн 2021", "78", ""))
+            movies?.add(CardMovie(550,"Босс-молокосос 2", "01 июл 2021", "79", ""))
+            movies?.add(CardMovie(550,"Война будущего", "30 июн 2021", "82", ""))
 
     }
     override fun getLocalResource():ArrayList<CardMovie> = movies!!

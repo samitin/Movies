@@ -2,12 +2,17 @@ package ru.samitin.movies.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import ru.samitin.movies.R
 import ru.samitin.movies.databinding.ActivityDescriptionBinding
 import ru.samitin.movies.entities.CardMovie
 import ru.samitin.movies.model.MovieLoader
 import ru.samitin.movies.model.dto.Genre
 import ru.samitin.movies.model.dto.MovieDTO
+import ru.samitin.movies.utils.showSnackBar
+import ru.samitin.movies.viewmodel.AppState
+import ru.samitin.movies.viewmodel.DescriptionViewModel
 import java.lang.StringBuilder
 
 const val DESCRIPTION_CARD_KEY="DESCRIPTION_CARD_KEY"
@@ -15,16 +20,8 @@ const val DESCRIPTION_CARD_KEY="DESCRIPTION_CARD_KEY"
 class DescriptionActivity : AppCompatActivity() {
     lateinit var binding:ActivityDescriptionBinding
     private var movieId:Int=0
-    private val onLoadLister:MovieLoader.MovieLoaderListener=
-        object : MovieLoader.MovieLoaderListener{
-            override fun onLoaded(movieDTO: MovieDTO) {
-                init(movieDTO)
-            }
+    private val viewModel:DescriptionViewModel by lazy { ViewModelProvider(this).get(DescriptionViewModel::class.java) }
 
-            override fun onFailed(throwable: Throwable) {
-
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +29,32 @@ class DescriptionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         movieId= intent?.extras?.getInt(DESCRIPTION_CARD_KEY,550)!!
-        val loader=MovieLoader(onLoadLister,movieId)
-        loader.loadMovie()
+        viewModel.descriptionLiveData.observe(this,{
+            var app=it
+            renderData(appState = it)})
+        viewModel.getMovieFromRemoteSource(movieId)
     }
 
+    private fun renderData(appState: AppState){
+        when(appState){
+            is AppState.SuccessDescription ->{
+                binding.mainView.visibility=View.VISIBLE
+                binding.loadingLayout.visibility=View.GONE
+                init(appState.movieDescription)
+            }
+            is AppState.Loading ->{
+                binding.mainView.visibility=View.GONE
+                binding.loadingLayout.visibility=View.VISIBLE
+            }
+            is AppState.Error ->{
+                binding.mainView.visibility=View.GONE
+                binding.loadingLayout.visibility=View.VISIBLE
+                binding.mainView.showSnackBar("ошибка","перезагрузка",{
+                    viewModel.getMovieFromRemoteSource(movieId)
+                })
+            }
+        }
+    }
     private fun init(movieDTO: MovieDTO){
         binding.nameDescription.text=movieDTO.title
         binding.butget.text="$ ${movieDTO.budget}"
