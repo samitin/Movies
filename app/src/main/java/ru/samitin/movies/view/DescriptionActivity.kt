@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import ru.samitin.movies.BuildConfig
 import ru.samitin.movies.R
 import ru.samitin.movies.databinding.ActivityDescriptionBinding
@@ -62,10 +63,10 @@ class DescriptionActivity : AppCompatActivity() {
         binding.butget.text="$ ${movieDTO.budget}"
         binding.date.text=movieDTO.release_date
         binding.description.text=movieDTO.overview
-        Glide.with(this)
+        Picasso.get()
             .load("https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movieDTO.poster_path}")
+            .error(R.drawable.ic_launcher_background)
             .into(binding.imageDescription)
-        binding.imageDescription.setImageResource(R.drawable.movie_icon)
         var genre:String=""
         for (g in movieDTO.genres)
             genre+= "${g.name},"
